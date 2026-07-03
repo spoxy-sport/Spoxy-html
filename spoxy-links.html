@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPOXY | Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#0A0908;
+    --ink:#F3E4D6;
+    --brown:#C9BBAE;
+    --muted:#A69485;
+    --orange:#E4241D;
+    --orange-dark:#7A0D10;
+    --green:#3DDC84;
+    --gold:#E8A73B;
+    --card:#171310;
+    --line:#362420;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:
+      radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1.3px) 0 0/22px 22px,
+      var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--orange);color:#fff;}
+
+  .banner{
+    width:100%;
+    background:var(--orange);
+    color:#fff;
+    text-align:center;
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    font-size:12px;
+    font-weight:600;
+    padding:9px;
+  }
+
+  /* ambient glow + streaks, echoing the main site */
+  .glow-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;opacity:0.5;z-index:0;}
+  .glow-1{width:420px;height:420px;top:-160px;left:50%;transform:translateX(-50%);background:radial-gradient(circle, rgba(228,36,29,0.4), transparent 70%);}
+  .glow-2{width:320px;height:320px;bottom:0;right:-100px;background:radial-gradient(circle, rgba(122,13,16,0.4), transparent 70%);}
+  .streak{position:absolute;pointer-events:none;z-index:0;background:linear-gradient(100deg, transparent 40%, rgba(228,36,29,0.8) 41%, rgba(228,36,29,0.8) 44%, transparent 45%, transparent 50%, rgba(122,13,16,0.6) 51%, rgba(122,13,16,0.6) 53%, transparent 54%);opacity:0.4;}
+  .streak-tr{top:-4%;right:-14%;width:60%;height:120%;transform:rotate(18deg);}
+
+  .wrap{
+    width:100%;
+    max-width:480px;
+    padding:0 22px 60px;
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .cover{
+    width:100%;
+    max-width:480px;
+    border-radius:0 0 22px 22px;
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+    aspect-ratio:1536/1024;
+  }
+  .cover img{width:100%;height:100%;display:block;object-fit:cover;}
+  .cover::after{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, var(--cream) 100%);
+  }
+
+  .avatar{
+    width:104px;height:104px;
+    border-radius:50%;
+    background:var(--card);
+    border:3px solid var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    box-shadow:0 0 0 3px var(--orange), 0 10px 30px rgba(0,0,0,0.5);
+    animation:pulseGlow 3.4s ease-in-out infinite;
+    margin-top:-64px;
+    position:relative;
+    z-index:2;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 3px var(--orange), 0 10px 30px rgba(0,0,0,0.5); }
+    50%{ box-shadow:0 0 0 6px rgba(228,36,29,0.55), 0 10px 34px rgba(0,0,0,0.55); }
+  }
+
+  h1{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:34px;
+    letter-spacing:0.01em;
+    margin-top:18px;
+    text-shadow:3px 3px 0 rgba(228,36,29,0.45);
+  }
+  h1 .dot,h1 .fun{color:var(--orange);}
+
+  .handle{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  .tagline{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--brown);
+    margin-top:14px;
+    line-height:1.5;
+  }
+  .tagline .em{color:var(--orange);}
+
+  .tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+  .tag{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:6px 14px;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    font-weight:600;
+    color:var(--brown);
+  }
+
+  /* ---- Link buttons ---- */
+  .links{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:32px;}
+  .link-btn{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    padding:16px 18px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .link-btn:hover{transform:translateY(-2px); border-color:var(--orange); background:#1c1613;}
+  .link-btn:active{transform:translateY(0);}
+  .link-btn .ico{
+    width:38px;height:38px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;
+  }
+  .link-btn .txt{flex:1; text-align:left;}
+  .link-btn .sub{display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:12px; color:var(--muted); margin-top:2px; letter-spacing:0;}
+  .link-btn .arrow{color:var(--muted); font-size:15px;}
+  .link-btn:hover .arrow{color:var(--orange);}
+  .link-btn.primary{background:var(--orange); border-color:var(--orange); color:#fff;}
+  .link-btn.primary .ico{background:rgba(0,0,0,0.18); border-color:transparent;}
+  .link-btn.primary .sub{color:rgba(255,255,255,0.75);}
+  .link-btn.primary:hover{background:#c91f19;}
+
+  /* shine sweep on hover */
+  .link-btn::after{
+    content:"";
+    position:absolute;
+    top:-60%; left:-60%;
+    width:40%; height:220%;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.16) 50%, transparent 80%);
+    transform:translateX(-140%) rotate(20deg);
+    transition:transform .5s ease;
+    pointer-events:none;
+  }
+  .link-btn:hover::after{transform:translateX(340%) rotate(20deg);}
+
+  /* mini live ticker chip, echoing the main site's prediction tape */
+  .mini-tick{
+    margin-top:28px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:10px 16px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--brown);
+  }
+  .mini-tick .q{color:var(--ink); flex:1; text-align:left;}
+  .mini-tick .split{font-family:'IBM Plex Mono',monospace; font-size:11px;}
+  .mini-tick .yes{color:var(--green);}
+  .mini-tick .no{color:var(--orange);}
+
+  .socials{display:flex;gap:14px;margin-top:30px;}
+  .socials a{
+    width:42px;height:42px;
+    border-radius:50%;
+    background:var(--card);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+    transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .socials a:hover{transform:translateY(-3px) rotate(-6deg); background:var(--orange); border-color:var(--orange); color:#fff;}
+
+  footer{
+    margin-top:40px;
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  footer a:hover{color:var(--ink);}
+
+  @media (max-width:420px){
+    .avatar{width:84px;height:84px;font-size:26px;}
+    h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="banner">Mainnet Beta Version Will Be Live Soon!!!</div>
+
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div class="streak streak-tr"></div>
+
+  <div class="cover">
+    <img src="assets/spoxy-banner.png" alt="SPOXY — Predict. Challenge. Compete.">
+  </div>
+
+  <div class="wrap">
+    <div class="avatar"><img src="assets/spoxy-icon.png" alt="SPOXY logo"></div>
+    <h1>SPOXY<span class="dot">.</span><span class="fun">FUN</span></h1>
+    <div class="handle">@Spoxy_dev</div>
+    <div class="tagline">The only goal is to <span class="em">WIN</span><br>Crypto &amp; Sports 🏀</div>
+
+    <div class="tags">
+      <span class="tag">Permissionless</span>
+      <span class="tag">PvP Battles</span>
+      <span class="tag">On Solana</span>
+    </div>
+
+    <div class="links">
+      <a class="link-btn primary" href="https://spoxy.fun" target="_blank" rel="noopener">
+        <span class="ico">🌐</span>
+        <span class="txt">spoxy.fun<span class="sub">The PvP battleground for predictions</span></span>
+        <span class="arrow">➝</span>
+      </a>
+      <a class="link-btn" href="https://spoxy.fun/#waitlist" target="_blank" rel="noopener">
+        <span class="ico">📝</span>
+        <span class="txt">Join the Waitlist<span class="sub">Get early access when mainnet beta launches</span></span>
+        <span class="arrow">➝</span>
+      </a>
+      <a class="link-btn" href="https://x.com/Spoxy_dev" target="_blank" rel="noopener">
+        <span class="ico">𝕏</span>
+        <span class="txt">Follow on X<span class="sub">@Spoxy_dev</span></span>
+        <span class="arrow">➝</span>
+      </a>
+      <a class="link-btn" href="https://discord.gg/XgXmFyghs" target="_blank" rel="noopener">
+        <span class="ico">◈</span>
+        <span class="txt">Join Discord<span class="sub">Chat with the community</span></span>
+        <span class="arrow">➝</span>
+      </a>
+      <a class="link-btn" href="https://spoxy.fun/#docs" target="_blank" rel="noopener">
+        <span class="ico">📄</span>
+        <span class="txt">Read the Docs<span class="sub">How challenges, oracles &amp; payouts work</span></span>
+        <span class="arrow">➝</span>
+      </a>
+      <a class="link-btn" href="https://spoxy.fun/#how" target="_blank" rel="noopener">
+        <span class="ico">⚔</span>
+        <span class="txt">Why SPOXY?<span class="sub">Create, join &amp; win PvP prediction battles</span></span>
+        <span class="arrow">➝</span>
+      </a>
+    </div>
+
+    <div class="mini-tick">
+      <span class="tick-emoji">₿</span>
+      <span class="q">BTC above $120K by Sunday?</span>
+      <span class="split"><span class="yes">68 YES</span> / <span class="no">32 NO</span></span>
+    </div>
+
+    <div class="socials">
+      <a href="https://x.com/Spoxy_dev" title="X / Twitter" target="_blank" rel="noopener">𝕏</a>
+      <a href="https://discord.gg/XgXmFyghs" title="Discord" target="_blank" rel="noopener">◈</a>
+    </div>
+
+    <footer>©2026 SPOXY • The PvP Battleground For Predictions</footer>
+  </div>
+
+</body>
+</html>
